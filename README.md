@@ -2,7 +2,7 @@
 
 
 ### Contents
-- [Khái niệm XSS](https://github.com/s0md3v/AwesomeXSS#awesome-challenges)
+- [Khái niệm XSS](https://github.com/chi442000/XSS#Concept)
 - [Tấn công thực hiện như thế nào](https://github.com/s0md3v/AwesomeXSS#awesome-reads--presentations)
 - [Các loại tấn công XSS](https://github.com/s0md3v/AwesomeXSS#awesome-context-breaking)
     - [Reflected XSS](https://github.com/s0md3v/AwesomeXSS#html-context)
@@ -13,7 +13,7 @@
 - [Kết luận](https://github.com/s0md3v/AwesomeXSS#awesome-probing)
 
 
-### Khái niệm XSS
+### Concept
 - [prompt.ml](https://prompt.ml)
 - [alf.nu/alert1](https://alf.nu/alert1)
 - [s-p-o-o-k-y.com](https://www.s-p-o-o-k-y.com)
