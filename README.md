@@ -4,7 +4,7 @@
 ### Contents
 - [Khái niệm XSS](https://github.com/chi442000/XSS#Concept)
 - [Tấn công thực hiện như thế nào](https://github.com/chi442000/XSS#realistic-attack)
-- [Các loại tấn công XSS](https://github.com/s0md3v/AwesomeXSS#awesome-context-breaking)
+- [Các loại tấn công XSS](https://github.com/chi442000/XSS#types-of-attacks)
     - [Reflected XSS](https://github.com/s0md3v/AwesomeXSS#html-context)
     - [Stored XSS](https://github.com/s0md3v/AwesomeXSS#attribute-context)
     - [DOM Based XSS](https://github.com/s0md3v/AwesomeXSS#javascript-context)
@@ -35,7 +35,7 @@
 - [Blind XSS](https://www.youtube.com/watch?v=OT0fJEtz7aE)
 - [Copy Pest](https://www.slideshare.net/x00mario/copypest)
 
-### Awesome Tools
+### Types of Attacks
 - [XSStrike](https://github.com/UltimateHackers/XSStrike)
 - [xsshunter.com](https://xsshunter.com)
 - [BeEF](https://github.com/beefproject/beef)
