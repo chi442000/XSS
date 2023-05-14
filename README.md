@@ -3,8 +3,7 @@
 
 ### Contents
 - [Khái niệm XSS](https://github.com/chi442000/XSS#Concept)
-- [Tấn công thực hiện như thế nào](https://github.com/chi442000/XSS#
-realistic-attack)
+- [Tấn công thực hiện như thế nào](https://github.com/chi442000/XSS#realistic-attack)
 - [Các loại tấn công XSS](https://github.com/s0md3v/AwesomeXSS#awesome-context-breaking)
     - [Reflected XSS](https://github.com/s0md3v/AwesomeXSS#html-context)
     - [Stored XSS](https://github.com/s0md3v/AwesomeXSS#attribute-context)
