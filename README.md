@@ -13,7 +13,7 @@
 - [Kết luận](https://github.com/s0md3v/AwesomeXSS#awesome-probing)
 
 
-### Awesome Challenges
+### Khái niệm XSS
 - [prompt.ml](https://prompt.ml)
 - [alf.nu/alert1](https://alf.nu/alert1)
 - [s-p-o-o-k-y.com](https://www.s-p-o-o-k-y.com)
