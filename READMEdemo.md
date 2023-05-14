@@ -1,7 +1,7 @@
-# Summary XSS
+# AwesomeXSS
 This repository is a collection of Awesome XSS resources. Contributions are welcome and should be submitted via an issue.
 
-### Contents
+### Awesome contents
 - [Challenges](https://github.com/s0md3v/AwesomeXSS#awesome-challenges)
 - [Reads & Presentations](https://github.com/s0md3v/AwesomeXSS#awesome-reads--presentations)
 - [Tools](https://github.com/s0md3v/AwesomeXSS#awesome-tools)
