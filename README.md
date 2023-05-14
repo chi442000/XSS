@@ -3,7 +3,8 @@
 
 ### Contents
 - [Khái niệm XSS](https://github.com/chi442000/XSS#Concept)
-- [Tấn công thực hiện như thế nào](https://github.com/s0md3v/AwesomeXSS#awesome-reads--presentations)
+- [Tấn công thực hiện như thế nào](https://github.com/chi442000/XSS#
+realistic-attack)
 - [Các loại tấn công XSS](https://github.com/s0md3v/AwesomeXSS#awesome-context-breaking)
     - [Reflected XSS](https://github.com/s0md3v/AwesomeXSS#html-context)
     - [Stored XSS](https://github.com/s0md3v/AwesomeXSS#attribute-context)
@@ -26,7 +27,7 @@
 - [wechall.net](https://www.wechall.net/challs/XSS)
 - [codelatte.id/labs/xss](https://codelatte.id/labs/xss)
 
-### Awesome Reads & Presentations
+### Realistic Attack
 - [Bypassing XSS Detection Mechanisms](https://github.com/s0md3v/MyPapers/tree/master/Bypassing-XSS-detection-mechanisms)
 - [XSS in Sarahah](http://www.shawarkhan.com/2017/08/sarahah-xss-exploitation-tool.html)
 - [XSS in Facebook via PNG Content Type](https://whitton.io/articles/xss-on-facebook-via-png-content-types/)
