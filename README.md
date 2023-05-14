@@ -1,25 +1,17 @@
 # Summary XSS
 
 
-### Awesome contents
-- [Challenges](https://github.com/s0md3v/AwesomeXSS#awesome-challenges)
-- [Reads & Presentations](https://github.com/s0md3v/AwesomeXSS#awesome-reads--presentations)
-- [Tools](https://github.com/s0md3v/AwesomeXSS#awesome-tools)
-- [Mind maps](https://github.com/s0md3v/AwesomeXSS#awesome-xss-mind-maps)
-- [DOM XSS](https://github.com/s0md3v/AwesomeXSS#awesome-dom-xss)
-- [Payloads](https://github.com/s0md3v/AwesomeXSS#awesome-payloads)
-- [Polyglots](https://github.com/s0md3v/AwesomeXSS#awesome-polyglots)
-- [Tags and event handlers](https://github.com/s0md3v/AwesomeXSS#awesome-tags--event-handlers)
-- [Context breaking](https://github.com/s0md3v/AwesomeXSS#awesome-context-breaking)
-    - [HTML context](https://github.com/s0md3v/AwesomeXSS#html-context)
-    - [Attribute context](https://github.com/s0md3v/AwesomeXSS#attribute-context)
-    - [JavaScript context](https://github.com/s0md3v/AwesomeXSS#javascript-context)
-- [Confirm Variants](https://github.com/s0md3v/AwesomeXSS#awesome-confirm-variants)
-- [Exploits](https://github.com/s0md3v/AwesomeXSS#awesome-exploits)
-- [Probing](https://github.com/s0md3v/AwesomeXSS#awesome-probing)
-- [Bypassing](https://github.com/s0md3v/AwesomeXSS#awesome-bypassing)
-- [Encoding](https://github.com/s0md3v/AwesomeXSS#awesome-encoding)
-- [Tips & tricks](https://github.com/s0md3v/AwesomeXSS#awesome-tips--tricks)
+### Contents
+- [Khái niệm XSS](https://github.com/s0md3v/AwesomeXSS#awesome-challenges)
+- [Tấn công thực hiện như thế nào](https://github.com/s0md3v/AwesomeXSS#awesome-reads--presentations)
+- [Các loại tấn công XSS](https://github.com/s0md3v/AwesomeXSS#awesome-context-breaking)
+    - [Reflected XSS](https://github.com/s0md3v/AwesomeXSS#html-context)
+    - [Stored XSS](https://github.com/s0md3v/AwesomeXSS#attribute-context)
+    - [DOM Based XSS](https://github.com/s0md3v/AwesomeXSS#javascript-context)
+- [Cách để kiểm thử tấn công XSS](https://github.com/s0md3v/AwesomeXSS#awesome-confirm-variants)
+- [Các cách để ngăn chặn XSS](https://github.com/s0md3v/AwesomeXSS#awesome-exploits)
+- [Kết luận](https://github.com/s0md3v/AwesomeXSS#awesome-probing)
+
 
 ### Awesome Challenges
 - [prompt.ml](https://prompt.ml)
